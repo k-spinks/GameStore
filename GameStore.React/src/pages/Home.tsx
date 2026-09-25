@@ -81,7 +81,7 @@ const Home: React.FC = () => {
 
   if (isLoading) {
     return (
-      <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 3 }}>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mt: 3 }}>
         <CircularProgress size={20} />
         <Typography variant="body1">Loading...</Typography>
       </Stack>
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
       </Box>
 
       {games.length === 0 ? (
-        <Typography sx={{ mt: 2 }} fontStyle="italic">
+        <Typography sx={{ mt: 2, fontStyle: 'italic' }}>
           No games found. Click "New Game" to add your first game!
         </Typography>
       ) : (

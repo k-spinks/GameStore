@@ -11,7 +11,6 @@ import {
   Stack,
   CircularProgress,
 } from '@mui/material';
-import type { SelectChangeEvent } from '@mui/material';
 import GamesClient from '../clients/GamesClient';
 import GenresClient from '../clients/GenresClient';
 import { type GameDetails } from '../models/GameDetails';
@@ -90,18 +89,13 @@ const EditGame: React.FC = () => {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = event.target;
     setGame((prevGame) => ({
       ...prevGame!,
       [name]: name === 'price' ? parseFloat(value) : value,
-    }));
-  };
-
-  const handleGenreChange = (event: SelectChangeEvent) => {
-    setGame((prevGame) => ({
-      ...prevGame!,
-      genreId: event.target.value,
     }));
   };
 
@@ -119,7 +113,7 @@ const EditGame: React.FC = () => {
 
   if (!genres || !game) {
     return (
-      <Stack direction="row" spacing={1} alignItems="center">
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
         <CircularProgress size={20} />
         <Typography variant="body1">Loading...</Typography>
       </Stack>
@@ -155,7 +149,7 @@ const EditGame: React.FC = () => {
               label="Genre"
               select
               value={game.genreId ?? ''}
-              onChange={handleGenreChange}
+              onChange={handleInputChange}
               required
               fullWidth
             >
