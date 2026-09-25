@@ -108,7 +108,7 @@ GameStore.React/
 - TypeScript
 - Vite
 - React Router
-- Bootstrap 5
+- MUI
 
 ## Development Tips
 
@@ -142,7 +142,3 @@ Ensure:
 1. The API is running on the expected port
 2. Check the API URL configuration in the React app's client files
 3. CORS is properly configured in the API
-
-## License
-
-This project is for educational purposes.

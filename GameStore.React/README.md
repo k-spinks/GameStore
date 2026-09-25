@@ -12,7 +12,7 @@ A simple React application for managing games with basic CRUD operations.
 ## Prerequisites
 
 - Node.js (v18+ recommended)
-- Game Store API running on http://localhost:5274
+- Game Store API running on http://localhost:5001
 
 ## Setup
 
@@ -42,6 +42,6 @@ docker build -t gamestore-react .
 
 - React 18
 - TypeScript
-- Bootstrap 5
+- MUI
 - Vite
 - React Router
