@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import {
   Box,
   Typography,
@@ -23,9 +24,9 @@ const EditGame: React.FC = () => {
   const [genres, setGenres] = useState<Genre[] | null>(null);
   const [title, setTitle] = useState<string>('');
   const [loadingErrorList, setLoadingErrorList] = useState<string[]>([]);
-  const [errorList, setErrorList] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const genresClient = new GenresClient();
+  const { enqueueSnackbar } = useSnackbar();
   const defaultImageUri = 'https://placehold.co/100';
 
   useEffect(() => {
@@ -65,7 +66,6 @@ const EditGame: React.FC = () => {
     event.preventDefault();
     if (!game) return;
 
-    setErrorList([]);
     setIsSubmitting(true);
 
     try {
@@ -76,9 +76,14 @@ const EditGame: React.FC = () => {
         : await gamesClient.updateGameAsync({ ...game, id });
 
       if (result.succeeded) {
+        enqueueSnackbar(!id ? 'Game added' : 'Game updated', {
+          variant: 'success',
+        });
         navigate('/');
       } else {
-        setErrorList(result.errors);
+        result.errors.forEach((error) =>
+          enqueueSnackbar(error, { variant: 'error' }),
+        );
       }
     } finally {
       setIsSubmitting(false);
@@ -102,7 +107,7 @@ const EditGame: React.FC = () => {
 
   if (loadingErrorList.length > 0) {
     return (
-      <Box sx={{ mt: 3 }}>
+      <Box>
         {loadingErrorList.map((error, index) => (
           <Alert severity="error" key={index} sx={{ mb: 1 }}>
             {error}
@@ -114,7 +119,7 @@ const EditGame: React.FC = () => {
 
   if (!genres || !game) {
     return (
-      <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 3 }}>
+      <Stack direction="row" spacing={1} alignItems="center">
         <CircularProgress size={20} />
         <Typography variant="body1">Loading...</Typography>
       </Stack>
@@ -122,20 +127,10 @@ const EditGame: React.FC = () => {
   }
 
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box>
       <Typography variant="h5" component="h3" gutterBottom>
         {title}
       </Typography>
-
-      {errorList.length > 0 && (
-        <Box sx={{ mt: 2 }}>
-          {errorList.map((error, index) => (
-            <Alert severity="error" key={index} sx={{ mb: 1 }}>
-              {error}
-            </Alert>
-          ))}
-        </Box>
-      )}
 
       <Box sx={{ maxWidth: 400, mt: 2 }}>
         <Box

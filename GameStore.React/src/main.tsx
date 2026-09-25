@@ -11,20 +11,26 @@ import theme from './theme/themes';
 import App from './App';
 import Home from './pages/Home';
 import EditGame from './pages/EditGame';
+import { SnackbarProvider } from 'notistack';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-            <Route path="editgame" element={<EditGame />} />
-            <Route path="editgame/:id" element={<EditGame />} />
-          </Route>
-        </Routes>
-      </Router>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Router>
+          <Routes>
+            <Route path="/" element={<App />}>
+              <Route index element={<Home />} />
+              <Route path="editgame" element={<EditGame />} />
+              <Route path="editgame/:id" element={<EditGame />} />
+            </Route>
+          </Routes>
+        </Router>
+      </SnackbarProvider>
     </ThemeProvider>
   </StrictMode>,
 );
