@@ -3,7 +3,7 @@ import { type GameDetails } from '../models/GameDetails';
 import { type GameSummary } from '../models/GameSummary';
 
 class GamesClient {
-  private baseUrl = '/api';
+  private baseUrl = '';
 
   async getGamesAsync(): Promise<GameSummary[]> {
     const response = await this.fetchWithHandling(`${this.baseUrl}/games`);

@@ -6,12 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:5001',
-        rewrite: (path) => path.replace(/^\/api/, ''),
-        changeOrigin: true,
-        secure: false,
-      },
+      '/games': 'http://localhost:5001',
+      '/genres': 'http://localhost:5001',
     },
   },
 });

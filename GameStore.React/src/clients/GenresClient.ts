@@ -1,7 +1,7 @@
 import { type Genre } from '../models/Genre';
 
 class GenresClient {
-  private baseUrl = '/api';
+  private baseUrl = '';
 
   async getGenresAsync(): Promise<Genre[]> {
     const response = await this.fetchWithHandling(`${this.baseUrl}/genres`);
