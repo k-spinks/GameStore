@@ -1,0 +1,32 @@
+GET http://localhost:5001/games
+
+### 
+GET http://localhost:5001/games/3
+
+### 
+POST http://localhost:5001/games/
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "genreId": 5,
+  "price": 59.99,
+  "releaseDate":"2016-11-02"
+}
+
+### 
+PUT http://localhost:5001/games/2
+Content-Type: application/json
+
+{
+  "name": "Test 2",
+  "genreId": 5,
+  "price": 0,
+  "releaseDate":"2024-11-02"
+}
+
+### 
+DELETE http://localhost:5001/games/3
+
+###
+GET http://localhost:5001/genres
